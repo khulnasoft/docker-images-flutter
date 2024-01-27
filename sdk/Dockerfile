@@ -1,6 +1,5 @@
-FROM ghcr.io/khulnasoft/android-sdk:34
+FROM khulnasoft/android-sdk:30
 
-LABEL org.opencontainers.image.source=https://github.com/khulnasoft/docker-images-flutter
 USER root
 
 ARG flutter_version
