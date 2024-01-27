@@ -1,17 +1,25 @@
-docker_builder:
+task:
   name: flutter:$DOCKER_TAG
+  compute_engine_instance:
+    image_project: khulnasoft-images
+    image: family/docker-kvm
+    platform: linux
+    cpu: 4
+    memory: 16G
   env:
     # from https://flutter.dev/docs/development/tools/sdk/releases
     matrix:
-      - DOCKER_TAG: latest
-        FLUTTER_VERSION: 3.16.9
-      - DOCKER_TAG: stable
-        FLUTTER_VERSION: 3.16.9
-      - DOCKER_TAG: beta
-        FLUTTER_VERSION: 3.19.0-0.3.pre
-  version_script: docker --version
+    - DOCKER_TAG: latest
+      FLUTTER_VERSION: 2.0.6
+    - DOCKER_TAG: stable
+      FLUTTER_VERSION: 2.0.6
+    - DOCKER_TAG: beta
+      FLUTTER_VERSION: 2.2.0-10.2.pre
+    - DOCKER_TAG: dev
+      FLUTTER_VERSION: 2.3.0-0.1.pre
   setup_script:
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
     - docker buildx inspect --bootstrap
-  ci_script: ./ci.sh
+  build_script: ./build_docker.sh
+  push_script: ./push_docker.sh
