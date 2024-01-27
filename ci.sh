@@ -2,7 +2,7 @@
 
 set -e
 
-if [ "$CIRRUS_BRANCH" != "master" ]
+if [ "$KHULNASOFT_BRANCH" != "master" ]
 then
     docker buildx build --platform linux/amd64,linux/arm64 \
        --tag ghcr.io/khulnasoft/flutter:${FLUTTER_VERSION/+/-} \
