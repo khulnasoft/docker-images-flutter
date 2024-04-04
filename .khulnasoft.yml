@@ -1,5 +1,11 @@
-docker_builder:
+task:
   name: flutter:$DOCKER_TAG
+  compute_engine_instance:
+    image_project: khulnasoft-images
+    image: family/docker-kvm
+    platform: linux
+    cpu: 4
+    memory: 16G
   env:
     # from https://flutter.dev/docs/development/tools/sdk/releases
     matrix:
@@ -14,4 +20,5 @@ docker_builder:
     - docker buildx create --name multibuilder
     - docker buildx use multibuilder
     - docker buildx inspect --bootstrap
-  ci_script: ./ci.sh
+  build_script: ./build_docker.sh
+  push_script: ./push_docker.sh
